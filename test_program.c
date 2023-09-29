@@ -24,22 +24,23 @@
 
 #include "segmented_sieve.h"
 
-bool* sieve_of_eratosthenes(int end) {
-    bool* prime = (bool*)malloc((end + 1) * sizeof(bool));
+bool *sieve_of_eratosthenes(int end)
+{
+	bool *prime = (bool *)malloc((end + 1) * sizeof(bool));
 	memset(prime, true, (end + 1) * sizeof(bool));
 
-    *prime = false;
+	*prime = false;
 	*(prime + 1) = false;
 
-    for (int p = 2; p * p <= end; p++) {
-        if (*(prime + p) == true) {
-            for (int i = p * p; i <= end; i += p) {
-                *(prime + i) = false;
-            }
-        }
-    }
+	for (int p = 2; p * p <= end; p++) {
+		if (*(prime + p) == true) {
+			for (int i = p * p; i <= end; i += p) {
+				*(prime + i) = false;
+			}
+		}
+	}
 
-    return prime;
+	return prime;
 }
 
 void print_list(bool *primes, int start, int end)
@@ -84,7 +85,8 @@ int main(int argc, char **argv)
 		elapsed = (finish.tv_sec - t_start.tv_sec);
 		elapsed += (finish.tv_nsec - t_start.tv_nsec) / 1000000000.0;
 
-		printf("Time used was %fms for the numbers between up to %d with regular sieve. \n", elapsed * 1000, end);
+		printf("Time used was %fms for the numbers between up to %d with regular sieve. \n",
+			   elapsed * 1000, end);
 #endif
 
 

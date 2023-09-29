@@ -42,7 +42,7 @@ void shared_params_free(struct shared_params_t *s_params)
 {
 	pthread_cond_destroy(&s_params->t_cond);
 	pthread_mutex_destroy(&s_params->t_mutex);
-    free(s_params->help_list);
+	free(s_params->help_list);
 	free(s_params);
 }
 
@@ -83,15 +83,15 @@ void *sieve(void *arg)
 
 		if (lower <= 1) {
 			lower = *(params->shared->help_list + i) + *(params->shared->help_list + i);
-        } else if (params->shared->start % *(params->shared->help_list + i)) {
+		} else if (params->shared->start % *(params->shared->help_list + i)) {
 			lower = (lower * *(params->shared->help_list + i)) + *(params->shared->help_list + i);
 		} else {
 			lower = (lower * *(params->shared->help_list + i));
-        }
+		}
 
 		for (int j = lower; j <= params->shared->end; j = j + *(params->shared->help_list + i)) {
 			*(params->shared->prime + j - params->shared->start) = false;
-        }
+		}
 	}
 
 	pthread_mutex_lock(&params->shared->t_mutex);
@@ -100,16 +100,16 @@ void *sieve(void *arg)
 	pthread_mutex_unlock(&params->shared->t_mutex);
 	free(arg);
 
-    return NULL;
+	return NULL;
 }
 
 bool *ss_find_primes(int start, int end, int max_threads)
 {
 	struct shared_params_t *shared = shared_params_malloc(max_threads, start, end);
 
-	if (start < 2 && end >= 2)  {
+	if (start < 2 && end >= 2) {
 		start = 2;
-    }
+	}
 
 	fill_nums(shared->help_list, &shared->help_list_size, end);
 
